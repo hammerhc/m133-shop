@@ -1,5 +1,9 @@
-export type Person = {
+export type Product = {
     id: string,
-    firstName: string,
-    lastName: string
+    productName: string,
+    specialOffer: number,
+    normalPrice: number,
+    imageName: string,
+    imagePath: string,
+    description: string
 }

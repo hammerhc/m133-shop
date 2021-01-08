@@ -1,24 +1,22 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
 import { Session } from "https://deno.land/x/session/mod.ts";
-import { Person } from "../common/types.ts";
+import { Product } from "../common/types.ts";
 
 // Session konfigurieren und starten
 const session = new Session({ framework: "oak" });
 await session.init();
 export const usableSession = session.use()(session);
 
-const persons: Person[] = [
-    { id: "p01", firstName: "Hans", lastName: "Maulwurf" }
-];
+const products: Product[] = JSON.parse(Deno.readTextFileSync("./src/common/products.json"));
 
 const router = new Router();
 router
-    .get("/api/persons", cxt => {
-        cxt.response.body = persons;
+    .get("/api/products", context => {
+        context.response.body = products;
     })
-    .get("/api/persons/:id", async ctx => {
-        ctx.response.body = persons
-            .find(p => p.id == ctx.params.id);
+    .get("/api/products/:id", async context => {
+        context.response.body = products
+            .find(p => p.id == context.params.id);
     });
 
 export const api = router.routes();
