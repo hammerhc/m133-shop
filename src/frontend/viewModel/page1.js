@@ -11,7 +11,7 @@ async function  loadOverview() {
     for (const person of persons) {
         list.innerHTML += `
             <li>
-                <a href="./views/page2.html?personId=${person.id}">${person.firstName} ${person.lastName}</a>
+                <a href="./view/page2.html?personId=${person.id}">${person.firstName} ${person.lastName}</a>
             </li>
         `;
     }
