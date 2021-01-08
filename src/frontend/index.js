@@ -1,5 +1,5 @@
-function load() {
-    loadProducts();
+async function load() {
+    await loadProducts();
 }
 
 async function loadProducts() {
@@ -21,11 +21,11 @@ async function loadProducts() {
 
 function createProduct(element) {
     return `
-    <article class="product">
-        <img class="productImage" src="${element.imagePath}" alt="${element.productName}" width="200" height="200">
-        <p class="productTitle">${element.productName}</p>
-        <p class="productPrice">${getPrice(element.normalPrice, true)}</p>
-        <p class="productSpecialPrice">${getPrice(element.specialOffer, false)}</p>
+    <article class="product" onclick="productClick(event)">
+        <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
+        <span class="productTitle">${element.productName}</span>
+        <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
+        <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
     </article>
     `
 }
@@ -37,4 +37,9 @@ function getPrice(price, isStriked) {
         return convertedPrice.strike();
     }
     return convertedPrice;
+}
+
+function productClick(event) {
+    var id = event.target.id.replace("product-", "");
+    window.location.href = `./views/product.html?productId=${id}`;
 }
