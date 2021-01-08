@@ -1,5 +1,5 @@
-import { Router } from "https://deno.land/x/oak@v6.4.0/mod.ts";
-import { Session } from "https://deno.land/x/session@1.1.0/mod.ts";
+import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Session } from "https://deno.land/x/session/mod.ts";
 import { Person } from "../common/types.ts";
 
 // Session konfigurieren und starten

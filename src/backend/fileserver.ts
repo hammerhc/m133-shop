@@ -1,4 +1,4 @@
-import { send, Context } from "https://deno.land/x/oak@v6.4.0/mod.ts";
+import { send, Context } from "https://deno.land/x/oak/mod.ts";
 
 export const fileserver = async (context: Context<Record<string, any>>) => {
     await send(
@@ -6,6 +6,6 @@ export const fileserver = async (context: Context<Record<string, any>>) => {
         context.request.url.pathname,
         { 
             root: `${Deno.cwd()}/src/frontend`,
-            index: "page1.html"
+            index: "views/page1.html"
     });
 };
