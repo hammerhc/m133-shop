@@ -4,3 +4,56 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
+
+#bannerContainer {
+    background-color: gray;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#bannerContainer > h1 {
+    font-size: 50pt;
+}
+
+#cartContainer {
+    height: 30px;
+    text-align: right;
+    margin: 10px;
+}
+
+main {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+#productsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    justify-content: space-between;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    min-width: 25%;
+    margin: 25px 10px 25px 10px;
+    cursor: pointer;
+}
+
+.product > span, .productImage {
+    margin-bottom: 10px;
+}
+
+.productImage {
+    width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
