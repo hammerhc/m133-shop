@@ -7,3 +7,9 @@ export type Product = {
     imagePath: string,
     description: string
 }
+
+export type Cart = {
+    products: Product[],
+    totalSpecialPrice: number,
+    totalPrice: number
+}
