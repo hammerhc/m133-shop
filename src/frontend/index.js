@@ -41,5 +41,5 @@ function getPrice(price, isStriked) {
 
 function productClick(event) {
     var id = event.target.id.replace("product-", "");
-    window.location.href = `./views/product.html?productId=${id}`;
+    window.location.href = `./views/product.html?id=${id}`;
 }

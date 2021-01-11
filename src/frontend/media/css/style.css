@@ -47,6 +47,10 @@ main {
     cursor: pointer;
 }
 
+#productContainer > .product{
+    cursor: default;
+}
+
 .product > span, .productImage {
     margin-bottom: 10px;
 }
