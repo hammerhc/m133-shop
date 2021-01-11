@@ -5,11 +5,13 @@ export type Product = {
     normalPrice: number,
     imageName: string,
     imagePath: string,
-    description: string
+    description: string,
+    amount: number
 }
 
 export type Cart = {
     products: Product[],
     totalSpecialPrice: number,
-    totalPrice: number
+    totalPrice: number,
+    count: number
 }

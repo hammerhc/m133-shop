@@ -1,5 +1,6 @@
 async function load() {
     await loadProducts();
+    getCart();
 }
 
 async function loadProducts() {
@@ -42,4 +43,23 @@ function getPrice(price, isStriked) {
 function productClick(event) {
     var id = event.target.id.replace("product-", "");
     window.location.href = `./views/product.html?id=${id}`;
+}
+
+function showCart() {
+    window.location.href = `/views/cart.html`;
+}
+
+async function getCart() {
+    var cartAmount = document.getElementById("cartAmount");
+
+    var data = await fetch("/api/cart")
+    .then((response) => response.json())
+    .then(data => {
+        return data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    cartAmount.innerHTML = data.count;
 }

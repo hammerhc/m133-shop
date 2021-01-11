@@ -2,6 +2,7 @@ var product = [];
 
 async function load() {
     await loadProduct();
+    getCart();
 }
 
 async function loadProduct() {
@@ -47,12 +48,33 @@ function getPrice(price, isStriked) {
     return convertedPrice;
 }
 
-function addToCart() {
-    fetch("/api/addCart", {
+async function addToCart() {
+    await fetch("/api/addCart", {
         body: JSON.stringify(product),
         headers: {
             "Content-Type": "application/json",
         },
         method: "POST",
+    })
+
+    getCart();
+}
+
+async function getCart() {
+    var cartAmount = document.getElementById("cartAmount");
+
+    var data = await fetch("/api/cart")
+    .then((response) => response.json())
+    .then(data => {
+        return data;
+    })
+    .catch(error => {
+        console.error(error);
     });
+
+    cartAmount.innerHTML = data.count;
+}
+
+function showCart() {
+    window.location.href = `/views/cart.html`;
 }

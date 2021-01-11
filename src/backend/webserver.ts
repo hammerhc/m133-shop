@@ -14,7 +14,8 @@ const products: Product[] = JSON.parse(Deno.readTextFileSync("./src/common/produ
 var cart: Cart = {
     products: [],
     totalSpecialPrice: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    count: 0
 }
 
 const router = new Router();
@@ -29,11 +30,14 @@ router
         context.response.status = 200;
         context.response.body = product;
     })
-    .post("/api/addCart", async context => {
-        cart.products = await addToCart(context);
-        cart = calculatePrice();
+    .get("/api/cart", async context => {
         context.response.status = 200;
-        console.log(cart);
+        context.response.body = cart;
+    })
+    .post("/api/addCart", async context => {
+        cart = await addToCart(context);
+        cart = calculateProducts();
+        context.response.status = 200;
         context.response.body = cart;
     })
 
@@ -42,21 +46,30 @@ app.use(router.routes());
 async function addToCart(context: any) {
     var product = await context.request.body({ type: "json" }).value;
 
-    if (await context.state.session.get("products") == undefined) {
-        await context.state.session.set("products", []);
+    if (await context.state.session.get("cart") == undefined) {
+        await context.state.session.set("cart", cart);
     }
     
-    var cartProducts = await context.state.session.get("products");
-    await context.state.session.set("products", cartProducts = [...cartProducts,product]);
-    return cartProducts;
+    cart = await context.state.session.get("cart");
+    if (cart.products.find(element => element.id == product.id) == undefined) {
+        cart.products.push(product);
+    } else {
+        var index = cart.products.findIndex((element) => element.id == product.id);
+        cart.products[index].amount += 1;
+    }
+
+    await context.state.session.set("cart", cart);
+    return cart;
 }
 
-function calculatePrice() {
+function calculateProducts() {
     cart.totalPrice = 0;
     cart.totalSpecialPrice = 0;
+    cart.count = 0
     cart.products.forEach(element => {
-        cart.totalPrice += element.normalPrice;
-        cart.totalSpecialPrice += element.specialOffer;
+        cart.totalPrice += element.normalPrice * element.amount;
+        cart.totalSpecialPrice += element.specialOffer * element.amount;
+        cart.count += element.amount
     });
     return cart;
 }
