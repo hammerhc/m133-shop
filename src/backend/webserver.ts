@@ -31,6 +31,7 @@ router
     })
     .post("/api/addCart", async context => {
         cart.products = await addToCart(context);
+        cart = calculatePrice();
         context.response.status = 200;
         console.log(cart);
         context.response.body = cart;
@@ -48,6 +49,16 @@ async function addToCart(context: any) {
     var cartProducts = await context.state.session.get("products");
     await context.state.session.set("products", cartProducts = [...cartProducts,product]);
     return cartProducts;
+}
+
+function calculatePrice() {
+    cart.totalPrice = 0;
+    cart.totalSpecialPrice = 0;
+    cart.products.forEach(element => {
+        cart.totalPrice += element.normalPrice;
+        cart.totalSpecialPrice += element.specialOffer;
+    });
+    return cart;
 }
 
 app.use(async (context) => {
