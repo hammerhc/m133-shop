@@ -42,7 +42,7 @@ router
         context.response.body = cart;
     })
     .post("/api/checkout", async context => {
-        var nonValidElements = validateInput(context);
+        var nonValidElements = await validateInput(context);
         context.response.status = 200;
         context.response.body = nonValidElements;
     })
@@ -147,12 +147,12 @@ async function validateInput(context: any) {
 
     values.forEach((element: any) => {
         if (element.value === "") {
-            nonValidElements = [...nonValidElements, element];
+            nonValidElements.push(element);
         }
 
-        if (element.name == "email") {
-            if (!re.test(String(element.value).toLowerCase())) {
-                nonValidElements = [...nonValidElements, element];
+        if (element.name == "E-Mail") {
+            if (!re.test(element.value)) {
+                nonValidElements.push(element);
             }
         }
     });

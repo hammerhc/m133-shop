@@ -2,7 +2,7 @@ function back() {
     window.location.href = `/views/cart.html`;
 }
 
-async function validate() {
+function validate() {
     var messageContainer = document.getElementById("messageContainer");
     messageContainer.innerHTML = "";
 
@@ -11,6 +11,9 @@ async function validate() {
     var firstName = document.forms["checkoutForm"]["firstName"];
     var lastName = document.forms["checkoutForm"]["lastName"];
     var email = document.forms["checkoutForm"]["email"];
+    var button = document.getElementById("checkoutButton");
+
+    button.disabled = true;
 
     var elements = [firstName, lastName, email]
 
@@ -24,15 +27,29 @@ async function validate() {
         }
     })
 
+    if (isValid) {
+        button.disabled = false;
+    }
+
+    return isValid;
+}
+
+async function sendValues() {
+    var firstName = document.forms["checkoutForm"]["firstName"];
+    var lastName = document.forms["checkoutForm"]["lastName"];
+    var email = document.forms["checkoutForm"]["email"];
+
+    var isValid = validate();
+
     values = [
         {
-            name: firstName.name, value: firstName.value
+            name: firstName.placeholder, value: firstName.value
         },
         {
-            name: lastName.name, value: lastName.value
+            name: lastName.placeholder, value: lastName.value
         },
         {
-            name: email.name, value: email.value
+            name: email.placeholder, value: email.value
         }
     ]
 
@@ -55,15 +72,15 @@ async function validate() {
         if (data.length > 0) {
             data.forEach(element => {
                 if (element.value === "") {
-                    createMessage(`Bitte ${element.placeholder} eingeben!`)
+                    createMessage(`Bitte ${element.name} eingeben!`)
                     isValid = false;
                 } else if (element.value !== "") {
-                    createMessage(`Bitte eine valide ${element.placeholder} eingeben!`)
+                    createMessage(`Bitte eine valide ${element.name} eingeben!`)
                     isValid = false;
                 }
             });
         } else {
-            success();
+            //success();
         }
     }
 }

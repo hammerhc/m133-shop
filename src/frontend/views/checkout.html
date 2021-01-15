@@ -29,17 +29,17 @@
             <form id="checkoutForm">
                 <section class="inputContainer">
                     <label for="firstNameInput">Vorname:</label>
-                    <input id="firstNameInput" type="text" name="firstName" placeholder="Vorname" required="required">
+                    <input id="firstNameInput" type="text" name="firstName" onchange="validate()" placeholder="Vorname" required="required">
                 </section>
                 <section class="inputContainer">
                     <label for="lastNameInput">Nachname:</label>
-                    <input id="lastNameInput" type="text" name="lastName" placeholder="Nachname" required="required">
+                    <input id="lastNameInput" type="text" name="lastName" onchange="validate()" placeholder="Nachname" required="required">
                 </section>
                 <section class="inputContainer">
                     <label for="emailInput">E-Mail:</label>
-                    <input id="emailInput" type="email" name="email" placeholder="E-Mail" required="required">
+                    <input id="emailInput" type="email" name="email" onchange="validate()" placeholder="E-Mail" required="required">
                 </section>
-                <input type="button" onclick="validate()" value="Einkauf abschliessen">
+                <input id="checkoutButton" disabled type="button" onclick="sendValues()" value="Einkauf abschliessen">
             </form>
         </section>
     </main>
