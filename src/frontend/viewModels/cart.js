@@ -3,16 +3,10 @@ async function load() {
 }
 
 async function loadTable() {
-    var productTable = document.getElementById("productTable");
+    var productTable = document.getElementById("tableBody");
     var cartAmount = document.getElementById("cartAmount");
 
-    productTable.innerHTML = `
-    <tr>
-        <th>Produkt</th>
-        <th>Einzelpreis</th>
-        <th>Anzahl</th>
-        <th>Total</th>
-    </tr>`
+    productTable.innerHTML = "";
 
     var data = await fetch("/api/cart")
         .then((response) => response.json())

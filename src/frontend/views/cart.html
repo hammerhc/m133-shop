@@ -13,30 +13,39 @@
 
   <header>
     <section id="bannerContainer">
-      <h1>BBZW</h1>
+      <span>BBZW</span>
+      <span>Dorfladen</span>
     </section>
   </header>
 
-  <section id="backContainer">
-    <button id="backButton" onclick="back()">Zurück</button>
-  </section>
+  
+  <div id="controllerContainer">
+    <section id="backContainer">
+      <button id="backButton" onclick="back()">Zurück</button>
+    </section>
 
-  <section id="cartContainer">
-    <h3>
-      <span>Warenkorb: </span>
-      <span id="cartAmount"></span>
-    </h3>
-  </section>
+    <section id="cartContainer">
+      <div>
+        <span>Warenkorb: </span>
+        <span id="cartAmount"></span>
+      </div>
+    </section>
+  </div>
 
   <main>
     <section id="productListContainer">
-      <table id="productTable">
-        <tr>
-          <th>Produkt</th>
-          <th>Einzelpreis</th>
-          <th>Anzahl</th>
-          <th>Total</th>
-        </tr>
+      <table class="productTable">
+        <thead>
+          <tr id="tableHeader">
+            <th>Produkt</th>
+            <th>Einzelpreis</th>
+            <th>Anzahl</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
       </table>
     </section>
     <section>
