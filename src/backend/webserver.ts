@@ -34,16 +34,36 @@ router
         context.response.status = 200;
         context.response.body = cart;
     })
-    .post("/api/addCart", async context => {
-        cart = await addToCart(context);
+    .post("/api/addItem", async context => {
+        cart = await addItem(context);
         cart = calculateProducts();
         context.response.status = 200;
         context.response.body = cart;
     })
+    .post("/api/checkout", async context => {
+
+    })
+    .patch("/api/increase/:id", async context => {
+        cart = await increase(context);
+        cart = calculateProducts();
+        context.response.status = 200;
+        context.response.body = cart;
+    })
+    .patch("/api/decrease/:id", async context => {
+        cart = await decrease(context);
+        cart = calculateProducts();
+        context.response.status = 200;
+        context.response.body = cart;
+    })
+    .delete("/api/clearCart", async context => {
+        cart = await clearCart(context);
+        context.response.status = 200;
+        context.response.body = cart;
+    });
 
 app.use(router.routes());
 
-async function addToCart(context: any) {
+async function addItem(context: any) {
     var product = await context.request.body({ type: "json" }).value;
 
     if (await context.state.session.get("cart") == undefined) {
@@ -51,6 +71,7 @@ async function addToCart(context: any) {
     }
     
     cart = await context.state.session.get("cart");
+
     if (cart.products.find(element => element.id == product.id) == undefined) {
         cart.products.push(product);
     } else {
@@ -60,6 +81,64 @@ async function addToCart(context: any) {
 
     await context.state.session.set("cart", cart);
     return cart;
+}
+
+async function increase(context: any) {
+    var id = context.params.id;
+
+    if (await context.state.session.get("cart") == undefined) {
+        await context.state.session.set("cart", cart);
+    }
+    
+    cart = await context.state.session.get("cart");
+
+    var index = cart.products.findIndex((element) => element.id == id);
+    if (index >= 0) {
+        cart.products[index].amount += 1;
+    }
+    
+    await context.state.session.set("cart", cart);
+    return cart;
+}
+
+async function decrease(context: any) {
+    var id = context.params.id;
+
+    if (await context.state.session.get("cart") == undefined) {
+        await context.state.session.set("cart", cart);
+    }
+    
+    cart = await context.state.session.get("cart");
+
+    var index = cart.products.findIndex((element) => element.id == id);
+    if (index >= 0) {
+        if (cart.products[index].amount > 1) {
+            cart.products[index].amount -= 1;
+        }
+        else {
+            cart.products.splice(index, 1);
+        }
+    }
+    
+    await context.state.session.set("cart", cart);
+    return cart;
+}
+
+async function clearCart(context: any) {
+    if (await context.state.session.get("cart") == undefined) {
+        await context.state.session.set("cart", cart);
+    }
+    
+    cart = await context.state.session.get("cart");
+
+    cart.products = [];
+    
+    await context.state.session.set("cart", cart);
+    return cart;
+}
+
+async function validateInput(context: any) {
+    
 }
 
 function calculateProducts() {

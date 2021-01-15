@@ -49,7 +49,7 @@ function getPrice(price, isStriked) {
 }
 
 async function addToCart() {
-    await fetch("/api/addCart", {
+    await fetch("/api/addItem", {
         body: JSON.stringify(product),
         headers: {
             "Content-Type": "application/json",
