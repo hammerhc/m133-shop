@@ -74,7 +74,7 @@ async function addItem(context: any) {
     if (await context.state.session.get("cart") == undefined) {
         await context.state.session.set("cart", cart);
     }
-    
+
     cart = await context.state.session.get("cart");
 
     if (cart.products.find(element => element.id == product.id) == undefined) {
@@ -94,14 +94,14 @@ async function increase(context: any) {
     if (await context.state.session.get("cart") == undefined) {
         await context.state.session.set("cart", cart);
     }
-    
+
     cart = await context.state.session.get("cart");
 
     var index = cart.products.findIndex((element) => element.id == id);
     if (index >= 0) {
         cart.products[index].amount += 1;
     }
-    
+
     await context.state.session.set("cart", cart);
     return cart;
 }
@@ -112,7 +112,7 @@ async function decrease(context: any) {
     if (await context.state.session.get("cart") == undefined) {
         await context.state.session.set("cart", cart);
     }
-    
+
     cart = await context.state.session.get("cart");
 
     var index = cart.products.findIndex((element) => element.id == id);
@@ -124,7 +124,7 @@ async function decrease(context: any) {
             cart.products.splice(index, 1);
         }
     }
-    
+
     await context.state.session.set("cart", cart);
     return cart;
 }
@@ -133,20 +133,20 @@ async function clearCart(context: any) {
     if (await context.state.session.get("cart") == undefined) {
         await context.state.session.set("cart", cart);
     }
-    
+
     cart = await context.state.session.get("cart");
 
     cart.products = [];
-    
+
     await context.state.session.set("cart", cart);
     return cart;
 }
 
 async function validateInput(context: any) {
     var values = await context.request.body({ type: "json" }).value;
-    var nonValidElements:any = [];
+    var nonValidElements: any = [];
 
-    values.forEach((element:any) => {
+    values.forEach((element: any) => {
         if (element.value === "") {
             nonValidElements = [...nonValidElements, element];
         }
@@ -175,10 +175,10 @@ function calculateProducts() {
 
 app.use(async (context) => {
     await send(context, context.request.url.pathname, {
-      root: `${Deno.cwd()}/src/frontend`,
-      index: "index.html",
+        root: `${Deno.cwd()}/src/frontend`,
+        index: "index.html",
     });
-  });
+});
 
 console.log("Server running on http://localhost:8000");
 app.listen({ port: 8000 });

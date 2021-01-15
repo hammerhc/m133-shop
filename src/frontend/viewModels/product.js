@@ -10,7 +10,7 @@ async function loadProduct() {
 
     var productId = new URLSearchParams(window.location.search).get("id");
 
-    var data = await fetch("/api/product/" + productId)
+    var productData = await fetch("/api/product/" + productId)
         .then((response) => response.json())
         .then(data => {
             return data;
@@ -19,8 +19,7 @@ async function loadProduct() {
             console.error(error);
         });
 
-
-    data.forEach(element => {
+    productData.forEach(element => {
         product = element;
         productContainer.innerHTML += createProduct(element);
     });
@@ -64,13 +63,13 @@ async function getCart() {
     var cartAmount = document.getElementById("cartAmount");
 
     var data = await fetch("/api/cart")
-    .then((response) => response.json())
-    .then(data => {
-        return data;
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        .then((response) => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
     cartAmount.innerHTML = data.count;
 }

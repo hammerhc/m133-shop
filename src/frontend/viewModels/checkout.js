@@ -44,14 +44,14 @@ async function validate() {
             },
             method: "POST",
         })
-        .then((response) => response.json())
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-        
+            .then((response) => response.json())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
         if (data.length > 0) {
             data.forEach(element => {
                 if (element.value === "") {

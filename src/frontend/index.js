@@ -53,13 +53,13 @@ async function getCart() {
     var cartAmount = document.getElementById("cartAmount");
 
     var data = await fetch("/api/cart")
-    .then((response) => response.json())
-    .then(data => {
-        return data;
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        .then((response) => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
     cartAmount.innerHTML = data.count;
 }

@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
-    <link rel="stylesheet" href="./../media/css/style.css">
-    <script src="../viewModels/cart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop</title>
+  <link rel="stylesheet" href="./../media/css/style.css">
+  <script src="../viewModels/cart.js"></script>
 </head>
 
 <body onload="load()">
 
-    <header>
-      <section id="bannerContainer">
-        <h1>BBZW</h1>
-      </section>
-    </header>
-
-    <section id="backContainer">
-      <button id="backButton" onclick="back()">Zurück</button>
+  <header>
+    <section id="bannerContainer">
+      <h1>BBZW</h1>
     </section>
+  </header>
 
-    <section id="cartContainer">
-      <h3>
-        <span>Warenkorb: </span>
-        <span id="cartAmount"></span>
-      </h3>
+  <section id="backContainer">
+    <button id="backButton" onclick="back()">Zurück</button>
+  </section>
+
+  <section id="cartContainer">
+    <h3>
+      <span>Warenkorb: </span>
+      <span id="cartAmount"></span>
+    </h3>
+  </section>
+
+  <main>
+    <section id="productListContainer">
+      <table id="productTable">
+        <tr>
+          <th>Produkt</th>
+          <th>Einzelpreis</th>
+          <th>Anzahl</th>
+          <th>Total</th>
+        </tr>
+      </table>
     </section>
+    <section>
+      <button onclick="checkOut()">Checkout</button>
+    </section>
+  </main>
 
-    <main>
-      <section id="productListContainer">
-        <table id="productTable">
-            <tr>
-                <th>Produkt</th>
-                <th>Einzelpreis</th>
-                <th>Anzahl</th>
-                <th>Total</th>
-            </tr>
-        </table>
-      </section>
-      <section>
-        <button onclick="checkOut()">Checkout</button>
-      </section>
-    </main>
+  <footer>
+    <section id="footerContainer">
+      <p>Simon Krieger</p>
+    </section>
+  </footer>
 
-    <footer>
-      <section id="footerContainer">
-        <p>Simon Krieger</p>
-      </section>
-    </footer>
-
-  </body>
+</body>
 
 </html>

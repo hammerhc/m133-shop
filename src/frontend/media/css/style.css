@@ -14,7 +14,7 @@ html, body {
     align-content: center;
 }
 
-#bannerContainer > h1 {
+#bannerContainer>h1 {
     font-size: 50pt;
 }
 
@@ -47,11 +47,11 @@ main {
     cursor: pointer;
 }
 
-#productContainer > .product{
+#productContainer>.product {
     cursor: default;
 }
 
-.product > span, .productImage {
+.product>span, .productImage {
     margin-bottom: 10px;
 }
 
