@@ -4,6 +4,7 @@ async function load() {
 
 async function loadTable() {
     var productTable = document.getElementById("productTable");
+    var cartAmount = document.getElementById("cartAmount");
 
     productTable.innerHTML = `
     <tr>
@@ -21,6 +22,8 @@ async function loadTable() {
         .catch(error => {
             console.error(error);
         });
+
+    cartAmount.innerHTML = data.count;
 
     data.products.forEach(element => {
         productTable.innerHTML += createProductRow(element);
@@ -73,13 +76,13 @@ async function increase(event) {
     await fetch("/api/increase/" + productId, {
         method: "PATCH",
     })
-    .then((response) => response.json())
-    .then(data => {
-        return data;
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        .then((response) => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
     loadTable();
 }
@@ -90,13 +93,13 @@ async function decrease(event) {
     await fetch("/api/decrease/" + productId, {
         method: "PATCH",
     })
-    .then((response) => response.json())
-    .then(data => {
-        return data;
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        .then((response) => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
     loadTable();
 }
