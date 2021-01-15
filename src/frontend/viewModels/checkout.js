@@ -80,7 +80,7 @@ async function sendValues() {
                 }
             });
         } else {
-            //success();
+            success();
         }
     }
 }
