@@ -5,6 +5,14 @@ async function load() {
 async function loadTable() {
     var productTable = document.getElementById("productTable");
 
+    productTable.innerHTML = `
+    <tr>
+        <th>Produkt</th>
+        <th>Einzelpreis</th>
+        <th>Anzahl</th>
+        <th>Total</th>
+    </tr>`
+
     var data = await fetch("/api/cart")
         .then((response) => response.json())
         .then(data => {
@@ -30,9 +38,9 @@ function createProductRow(element) {
             <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
         </td>
         <td class="columnAmount">
-            <button onclick="removeItem()">-</button>
-            ${element.amount}
-            <button onclick="addItem()">+</button>
+            <button id="decrease${element.id}" onclick="decrease(event)">-</button>
+            <span id="productAmount${element.id}">${element.amount}</span>
+            <button id="increase${element.id}" onclick="increase(event)">+</button>
         </td>
         <td class="columnTotal">${getPrice(element.specialOffer * element.amount, false)}</td>
     </tr>
@@ -59,10 +67,40 @@ function getPrice(price, isStriked) {
     return convertedPrice;
 }
 
-function addItem() {
+async function increase(event) {
+    var productId = event.target.id.replace("increase", "");
 
+    await fetch("/api/increase/" + productId, {
+        method: "PATCH",
+    })
+    .then((response) => response.json())
+    .then(data => {
+        return data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    loadTable();
 }
 
-function removeItem() {
+async function decrease(event) {
+    var productId = event.target.id.replace("decrease", "");
 
+    await fetch("/api/decrease/" + productId, {
+        method: "PATCH",
+    })
+    .then((response) => response.json())
+    .then(data => {
+        return data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    loadTable();
+}
+
+function checkOut() {
+    window.location.href = `/views/checkout.html`;
 }
