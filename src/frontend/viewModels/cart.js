@@ -33,30 +33,44 @@ async function loadTable() {
 }
 
 function createProductRow(element) {
-    return `
-    <tr class="tableRow">
-        <td class="columnProduct">${element.productName}</td>
-        <td class="columnPrice">        
-            <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
-            <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
-        </td>
-        <td class="columnAmount">
-            <button id="decrease${element.id}" onclick="decrease(event)">-</button>
-            <span id="productAmount${element.id}">${element.amount}</span>
-            <button id="increase${element.id}" onclick="increase(event)">+</button>
-        </td>
-        <td class="columnTotal">${getPrice(element.specialOffer * element.amount, false)}</td>
-    </tr>
-    `
+    if (element.specialOffer != null) {
+        return `
+        <tr class="tableRow">
+            <td class="columnProduct">${element.productName}</td>
+            <td class="columnPrice">        
+                <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
+                <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
+            </td>
+            <td class="columnAmount">
+                <button id="decrease${element.id}" onclick="decrease(event)">-</button>
+                <span id="productAmount${element.id}">${element.amount}</span>
+                <button id="increase${element.id}" onclick="increase(event)">+</button>
+            </td>
+            <td class="columnTotal">${getPrice(element.specialOffer * element.amount, false)}</td>
+        </tr>
+        `
+    } else {
+        return `
+        <tr class="tableRow">
+            <td class="columnProduct">${element.productName}</td>
+            <td class="columnPrice">        
+                <span class="productPrice">${getPrice(element.normalPrice, false)}</span>
+            </td>
+            <td class="columnAmount">
+                <button id="decrease${element.id}" onclick="decrease(event)">-</button>
+                <span id="productAmount${element.id}">${element.amount}</span>
+                <button id="increase${element.id}" onclick="increase(event)">+</button>
+            </td>
+            <td class="columnTotal">${getPrice(element.normalPrice * element.amount, false)}</td>
+        </tr>
+        `
+    }
 }
 
 function createTotalRow(element) {
     return `
     <tr class="tableRowTotal">
-        <td colspan="4">${getPrice(element.totalPrice, true)}</td>
-    </tr>
-    <tr class="tableRowTotal">
-        <td colspan="4">${getPrice(element.totalSpecialPrice, false)}</td>
+        <td colspan="4">${getPrice(element.totalPrice, false)}</td>
     </tr>
     `
 }

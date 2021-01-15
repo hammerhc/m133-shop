@@ -2,7 +2,7 @@
     {
         "id": "001",
         "productName": "Nektarinen gelb",
-        "specialOffer": 3.6,
+        "specialOffer": null,
         "normalPrice": 5.2,
         "imageName": "nektarinen.jpg",
         "imagePath": "/media/img/nektarinen.jpg",

@@ -13,7 +13,6 @@ const products: Product[] = JSON.parse(Deno.readTextFileSync("./src/common/produ
 
 var cart: Cart = {
     products: [],
-    totalSpecialPrice: 0,
     totalPrice: 0,
     count: 0
 }
@@ -163,11 +162,13 @@ async function validateInput(context: any) {
 
 function calculateProducts() {
     cart.totalPrice = 0;
-    cart.totalSpecialPrice = 0;
     cart.count = 0
     cart.products.forEach(element => {
-        cart.totalPrice += element.normalPrice * element.amount;
-        cart.totalSpecialPrice += element.specialOffer * element.amount;
+        if (element.specialOffer != null) {
+            cart.totalPrice += element.specialOffer * element.amount;
+        } else {
+            cart.totalPrice += element.normalPrice * element.amount;
+        }
         cart.count += element.amount
     });
     return cart;

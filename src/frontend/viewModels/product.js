@@ -26,16 +26,28 @@ async function loadProduct() {
 }
 
 function createProduct(element) {
-    return `
-    <article class="product">
-        <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
-        <span class="productTitle">${element.productName}</span>
-        <span class="productDescription">${element.description}</span>
-        <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
-        <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
-        <button class="addButton" onclick="addToCart()">Zum Warenkorb hinzufügen</button>
-    </article>
-    `
+    if (element.specialOffer != null) {
+        return `
+        <article class="product">
+            <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
+            <span class="productTitle">${element.productName}</span>
+            <span class="productDescription">${element.description}</span>
+            <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
+            <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
+            <button class="addButton" onclick="addToCart()">Zum Warenkorb hinzufügen</button>
+        </article>
+        `
+    } else {
+        return `
+        <article class="product">
+            <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
+            <span class="productTitle">${element.productName}</span>
+            <span class="productDescription">${element.description}</span>
+            <span class="productPrice">${getPrice(element.normalPrice, false)}</span>
+            <button class="addButton" onclick="addToCart()">Zum Warenkorb hinzufügen</button>
+        </article>
+        `
+    }
 }
 
 function getPrice(price, isStriked) {

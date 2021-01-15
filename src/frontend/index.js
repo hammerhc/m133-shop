@@ -21,14 +21,24 @@ async function loadProducts() {
 }
 
 function createProduct(element) {
-    return `
-    <article class="product" onclick="productClick(event)">
-        <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
-        <span class="productTitle">${element.productName}</span>
-        <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
-        <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
-    </article>
-    `
+    if (element.specialOffer != null) {
+        return `
+        <article class="product" onclick="productClick(event)">
+            <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
+            <span class="productTitle">${element.productName}</span>
+            <span class="productPrice">${getPrice(element.normalPrice, true)}</span>
+            <span class="productSpecialPrice">${getPrice(element.specialOffer, false)}</span>
+        </article>
+        `
+    } else {
+        return `
+        <article class="product" onclick="productClick(event)">
+            <img class="productImage" id="product-${element.id}" src="${element.imagePath}" alt="${element.productName}">
+            <span class="productTitle">${element.productName}</span>
+            <span class="productPrice">${getPrice(element.normalPrice, false)}</span>
+        </article>
+        `
+    }
 }
 
 function getPrice(price, isStriked) {

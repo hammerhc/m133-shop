@@ -11,7 +11,6 @@ export type Product = {
 
 export type Cart = {
     products: Product[],
-    totalSpecialPrice: number,
     totalPrice: number,
     count: number
 }
