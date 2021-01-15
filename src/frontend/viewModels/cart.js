@@ -104,3 +104,7 @@ async function decrease(event) {
 function checkOut() {
     window.location.href = `/views/checkout.html`;
 }
+
+function back() {
+    window.location.href = `/index.html`;
+}

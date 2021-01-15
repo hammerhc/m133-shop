@@ -78,3 +78,7 @@ async function getCart() {
 function showCart() {
     window.location.href = `/views/cart.html`;
 }
+
+function back() {
+    window.location.href = `/index.html`;
+}
