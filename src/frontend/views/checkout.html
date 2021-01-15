@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,24 +12,44 @@
 <body onload="load()">
 
     <header>
-      <section id="bannerContainer">
-        <h1>BBZW</h1>
-      </section>
+        <section id="bannerContainer">
+            <h1>BBZW</h1>
+        </section>
     </header>
 
     <section id="backContainer">
         <button id="backButton" onclick="back()">Zurück</button>
-      </section>
+    </section>
 
     <main>
+        <section id="messageContainer">
+
+        </section>
+        <section id="form">
+            <form id="checkoutForm">
+                <section class="inputContainer">
+                    <label for="firstNameInput">Vorname:</label>
+                    <input id="firstNameInput" type="text" name="firstName" placeholder="Vorname" required="required">
+                </section>
+                <section class="inputContainer">
+                    <label for="lastNameInput">Nachname:</label>
+                    <input id="lastNameInput" type="text" name="lastName" placeholder="Nachname" required="required">
+                </section>
+                <section class="inputContainer">
+                    <label for="emailInput">E-Mail:</label>
+                    <input id="emailInput" type="email" name="email" placeholder="E-Mail" required="required">
+                </section>
+                <input type="button" onclick="validate()" value="Einkauf abschliessen">
+            </form>
+        </section>
     </main>
 
     <footer>
-      <section id="footerContainer">
-        <p>Simon Krieger</p>
-      </section>
+        <section id="footerContainer">
+            <p>Simon Krieger</p>
+        </section>
     </footer>
 
-  </body>
+</body>
 
 </html>
