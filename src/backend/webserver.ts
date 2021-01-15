@@ -18,6 +18,8 @@ var cart: Cart = {
     count: 0
 }
 
+const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 const router = new Router();
 router
     .get("/api/products", context => {
@@ -41,7 +43,9 @@ router
         context.response.body = cart;
     })
     .post("/api/checkout", async context => {
-
+        var nonValidElements = validateInput(context);
+        context.response.status = 200;
+        context.response.body = nonValidElements;
     })
     .patch("/api/increase/:id", async context => {
         cart = await increase(context);
@@ -57,6 +61,7 @@ router
     })
     .delete("/api/clearCart", async context => {
         cart = await clearCart(context);
+        cart = calculateProducts();
         context.response.status = 200;
         context.response.body = cart;
     });
@@ -138,7 +143,22 @@ async function clearCart(context: any) {
 }
 
 async function validateInput(context: any) {
-    
+    var values = await context.request.body({ type: "json" }).value;
+    var nonValidElements:any = [];
+
+    values.forEach((element:any) => {
+        if (element.value === "") {
+            nonValidElements = [...nonValidElements, element];
+        }
+
+        if (element.name == "email") {
+            if (!re.test(String(element.value).toLowerCase())) {
+                nonValidElements = [...nonValidElements, element];
+            }
+        }
+    });
+
+    return nonValidElements;
 }
 
 function calculateProducts() {
